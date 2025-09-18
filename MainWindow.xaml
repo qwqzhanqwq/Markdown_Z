@@ -1,0 +1,78 @@
+<Window x:Class="Markdown_Z.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Markdown_Z"
+        mc:Ignorable="d"
+        Title="Markdown_Z" Height="600" Width="920" MinHeight="500" MinWidth="720">
+    <DockPanel>
+        <!-- 主菜单区域 -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{DynamicResource Menu_File}">
+                <MenuItem Header="{DynamicResource File_New}" Click="NewFile_Click" InputGestureText="Ctrl+N" />
+                <MenuItem Header="{DynamicResource File_Open}" Click="OpenFile_Click" InputGestureText="Ctrl+O" />
+                <Separator/>
+                <MenuItem Header="{DynamicResource File_Save}" Click="SaveFile_Click" InputGestureText="Ctrl+S" />
+                <MenuItem Header="{DynamicResource File_SaveAs}" Click="SaveFileAs_Click" />
+                <MenuItem Header="{DynamicResource File_ExportHtml}" Click="ExportHtml_Click" />
+                <Separator/>
+                <MenuItem Header="{DynamicResource File_Exit}" Click="Exit_Click" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource Menu_View}">
+                <MenuItem Header="{DynamicResource View_EditMode}" IsCheckable="True" Name="EditModeMenuItem" Click="EditModeMenuItem_Click" />
+                <MenuItem Header="{DynamicResource View_ReadMode}" IsCheckable="True" Name="ReadModeMenuItem" Click="ReadModeMenuItem_Click" />
+                <Separator/>
+                <MenuItem Header="{DynamicResource View_SplitPreview}" IsCheckable="True" Name="SplitPreviewMenuItem" Click="SplitPreviewMenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="{DynamicResource Menu_Language}">
+                <MenuItem Header="{DynamicResource Lang_ZH}" Name="LangZhMenuItem" IsCheckable="True" Click="LangZhMenuItem_Click"/>
+                <MenuItem Header="{DynamicResource Lang_EN}" Name="LangEnMenuItem" IsCheckable="True" Click="LangEnMenuItem_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- 工具栏区域 -->
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <ToggleButton Name="ModeToggle" Width="110" Checked="ModeToggle_Checked" Unchecked="ModeToggle_Unchecked" Content="{DynamicResource Toolbar_ReadModeToggle}" />
+                <ToggleButton Name="SplitToggle" Width="100" Checked="SplitToggle_Checked" Unchecked="SplitToggle_Unchecked" Content="{DynamicResource Toolbar_Split}" />
+                <Separator />
+                <Button Click="NewFile_Click" Content="{DynamicResource Toolbar_New}" Width="60" />
+                <Button Click="OpenFile_Click" Content="{DynamicResource Toolbar_Open}" Width="60" />
+                <Button Click="SaveFile_Click" Content="{DynamicResource Toolbar_Save}" Width="60" />
+            </ToolBar>
+        </ToolBarTray>
+
+        <!-- 编辑和预览区域 -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" x:Name="EditorColumn"/>
+                <ColumnDefinition Width="5" x:Name="SplitterColumn"/>
+                <ColumnDefinition Width="*" x:Name="ReaderColumn"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Markdown 编辑器 -->
+            <TextBox Name="EditorTextBox" Grid.Column="0"
+                     FontFamily="Consolas"
+                     FontSize="14"
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     SpellCheck.IsEnabled="False"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     TextChanged="EditorTextBox_TextChanged"
+                     TextWrapping="NoWrap"/>
+
+            <!-- 布局分隔线 -->
+            <GridSplitter Name="MainSplitter" Grid.Column="1" Width="5"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          Background="#11000000" ResizeBehavior="PreviousAndNext" ResizeDirection="Columns" />
+
+
+            <!-- Markdown 渲染预览区域 -->
+            <FlowDocumentScrollViewer Name="ReaderViewer" Grid.Column="2"
+                                      VerticalScrollBarVisibility="Auto"
+                                      IsToolBarVisible="False"/>
+        </Grid>
+    </DockPanel>
+</Window>
