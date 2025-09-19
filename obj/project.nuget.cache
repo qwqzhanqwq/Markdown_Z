@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "BamOTsyHNDg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\zhan\\source\\repos\\Markdown_Z\\Markdown_Z.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\zhan\\.nuget\\packages\\markdig\\0.37.0\\markdig.0.37.0.nupkg.sha512",
+    "C:\\Users\\zhan\\.nuget\\packages\\markdig.wpf\\0.5.0.1\\markdig.wpf.0.5.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
