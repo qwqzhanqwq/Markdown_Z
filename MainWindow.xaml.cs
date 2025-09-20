@@ -170,6 +170,9 @@ public partial class MainWindow : Window
             "```csharp\nConsole.WriteLine(\"Hello, Markdown!\");\n```\n\n" +
             "> 提示：阅读模式下展示渲染后的文档 / Read mode shows rendered document.";
 
+        // Ĭ�Ͽ��������ĵ���ĩβ��ʾ��ʾ
+        EditorTextBox.Text += "\n\n提示：将.md的默认打开方式设为Markdown_Z";
+
         _currentFilePath = null;
         _isDirty = true;
         UpdateWindowTitle();
@@ -403,5 +406,30 @@ public partial class MainWindow : Window
                 Grid.SetColumnSpan(EditorTextBox, 1);
             }
         }
+    }
+
+    /// <summary>
+    /// 通过文件完整路径打开 Markdown 文件（供启动参数、外部调用使用）
+    /// </summary>
+    /// <param name="filePath">要打开的文件路径</param>
+    public void OpenFileByPath(string filePath)
+    {
+        if (string.IsNullOrWhiteSpace(filePath)) return;
+
+        // 规范化路径，兼容带引号的参数
+        var path = filePath.Trim().Trim('"');
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException("文件不存在", path);
+        }
+
+        // 读取并加载到编辑器
+        var text = File.ReadAllText(path, Encoding.UTF8);
+        EditorTextBox.Text = text;
+        _currentFilePath = path;
+        _isDirty = false;
+
+        // 打开文件后默认进入阅读模式
+        SetMode(isReadMode: true);
     }
 }
